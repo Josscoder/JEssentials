@@ -37,6 +37,7 @@
                                     <artifact>*:*</artifact>
                                     <excludes>
                                         <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.MF</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
@@ -59,6 +60,10 @@
             <id>opencollab-repo-snapshot</id>
             <url>https://repo.opencollab.dev/maven-snapshots/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -72,6 +77,18 @@
             <groupId>cn.nukkit</groupId>
             <artifactId>nukkit</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Josscoder</groupId>
+            <artifactId>ScoreboardAPI</artifactId>
+            <version>57623f50df</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Josscoder.JBridge</groupId>
+            <artifactId>jbridge-nukkit</artifactId>
+            <version>v1.0.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
