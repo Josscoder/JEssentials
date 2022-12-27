@@ -16,3 +16,5 @@ luck-format:
   tag:
     allow: true
     value: "{prefix} {name}"
+
+debug-tps-drop: false

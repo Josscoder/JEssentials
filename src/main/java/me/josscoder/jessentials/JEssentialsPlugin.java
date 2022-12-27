@@ -7,7 +7,6 @@ import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
 import me.josscoder.jessentials.api.LuckPermsAPI;
 import me.josscoder.jessentials.command.LuckFormatCommand;
-import me.josscoder.jessentials.command.PerformanceDebugCommand;
 import me.josscoder.jessentials.listener.GeneralListener;
 import me.josscoder.jessentials.manager.LuckFormatManager;
 
@@ -30,15 +29,32 @@ public class JEssentialsPlugin extends PluginBase {
     public void onEnable() {
         saveDefaultConfig();
 
+        handleDebugTPSDrop();
+
         loadAPIS();
         loadManagers();
 
         registerListener(new GeneralListener(), luckFormatManager);
-        registerCommand(new PerformanceDebugCommand(), new LuckFormatCommand());
+        registerCommand(new LuckFormatCommand());
     }
 
-    private void loadManagers() {
-        luckFormatManager = new LuckFormatManager(getConfig());
+    private void handleDebugTPSDrop() {
+        if (getConfig().getBoolean("debug-tps-drop")) {
+            getServer().getScheduler().scheduleRepeatingTask(this, () -> {
+                float tps = getServer().getTicksPerSecond();
+                if (tps >= 20.0) return;
+
+                String message = "There was a drop in Ticks per Second (TPS): " + tps;
+
+                getServer().getOnlinePlayers()
+                        .values()
+                        .stream()
+                        .filter(player -> player.hasPermission("debug.tps.drop.fall.permission"))
+                        .forEach(player -> player.sendMessage(message));
+
+                getLogger().warning(message);
+            }, 20);
+        }
     }
 
     private void loadAPIS() {
@@ -47,6 +63,10 @@ public class JEssentialsPlugin extends PluginBase {
 
         ScoreboardAPI scoreboardAPI = new ScoreboardAPI();
         scoreboardAPI.init();
+    }
+
+    private void loadManagers() {
+        luckFormatManager = new LuckFormatManager(getConfig());
     }
 
     public void registerListener(Listener ...listeners) {
