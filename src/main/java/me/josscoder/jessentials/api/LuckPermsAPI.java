@@ -41,13 +41,33 @@ public class LuckPermsAPI {
     }
 
     public String getPlayerPrefix(Player player) {
+        return getPlayerPrefix(player, true);
+    }
+
+    public String getPlayerPrefix(Player player, boolean brackets) {
         CachedMetaData cachedMetaData = getCachedMetaData(player);
-        return cachedMetaData == null ? "" : cachedMetaData.getPrefix();
+        
+        String prefix = (cachedMetaData == null
+                ? ""
+                : (cachedMetaData.getPrefix() == null ? "" : cachedMetaData.getPrefix())
+        );
+
+        if (!brackets) {
+            prefix = prefix.replace("[", "").replace("]", "");
+        }
+
+        return TextFormat.colorize(prefix);
     }
 
     public String getPlayerSuffix(Player player) {
         CachedMetaData cachedMetaData = getCachedMetaData(player);
-        return cachedMetaData == null ? "" : cachedMetaData.getSuffix();
+
+        String suffix = (cachedMetaData == null
+                ? ""
+                : (cachedMetaData.getSuffix() == null ? "" : cachedMetaData.getSuffix())
+        );
+
+        return TextFormat.colorize(suffix);
     }
 
     public SortedMap<Integer, String> getPlayerPrefixes(Player player) {
@@ -62,15 +82,24 @@ public class LuckPermsAPI {
 
     public String getMetaValue(String key, Player player, String defaultValue) {
         CachedMetaData cachedMetaData = getCachedMetaData(player);
-        return cachedMetaData == null ? defaultValue : cachedMetaData.getMetaValue(key);
+        return cachedMetaData == null
+                ? defaultValue
+                : (cachedMetaData.getMetaValue(key) == null
+                ? ""
+                : cachedMetaData.getMetaValue(key)
+        );
     }
 
     public String getUsernameColor(Player player) {
-        return getMetaValue("username-color", player, TextFormat.GRAY.toString());
+        return TextFormat.colorize(getMetaValue("username-color", player, "&7"));
     }
 
     public String getMessageColor(Player player) {
-        return getMetaValue("message-color", player, TextFormat.WHITE.toString());
+        return TextFormat.colorize(getMetaValue("message-color", player, "&f"));
+    }
+
+    public String getSuffixColor(Player player) {
+        return TextFormat.colorize(getMetaValue("suffix-color", player, "&f"));
     }
 
     public String getPlayerGroup(Player player) {
