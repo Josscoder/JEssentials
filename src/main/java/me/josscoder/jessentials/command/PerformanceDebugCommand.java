@@ -11,10 +11,11 @@ public class PerformanceDebugCommand extends Command {
                 "/performancedebug",
                 new String[]{"pdebug"}
         );
+        setPermission("performancedebug.permission");
     }
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        return false;
+        return true;
     }
 }

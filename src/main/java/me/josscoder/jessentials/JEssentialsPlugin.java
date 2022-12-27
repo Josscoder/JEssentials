@@ -5,15 +5,21 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.plugin.PluginBase;
 import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
+import me.josscoder.jessentials.api.LuckPermsAPI;
+import me.josscoder.jessentials.command.LuckFormatCommand;
 import me.josscoder.jessentials.command.PerformanceDebugCommand;
 import me.josscoder.jessentials.listener.GeneralListener;
+import me.josscoder.jessentials.manager.LuckFormatManager;
 
 import java.util.Arrays;
 
+@Getter
 public class JEssentialsPlugin extends PluginBase {
 
     @Getter
     private static JEssentialsPlugin instance;
+
+    private LuckFormatManager luckFormatManager;
 
     @Override
     public void onLoad() {
@@ -22,10 +28,25 @@ public class JEssentialsPlugin extends PluginBase {
 
     @Override
     public void onEnable() {
-        new ScoreboardAPI().onEnable();
+        saveDefaultConfig();
 
-        registerListener(new GeneralListener());
-        registerCommand(new PerformanceDebugCommand());
+        loadAPIS();
+        loadManagers();
+
+        registerListener(new GeneralListener(), luckFormatManager);
+        registerCommand(new PerformanceDebugCommand(), new LuckFormatCommand());
+    }
+
+    private void loadManagers() {
+        luckFormatManager = new LuckFormatManager(getConfig());
+    }
+
+    private void loadAPIS() {
+        LuckPermsAPI luckPermsAPI = new LuckPermsAPI();
+        luckPermsAPI.init();
+
+        ScoreboardAPI scoreboardAPI = new ScoreboardAPI();
+        scoreboardAPI.init();
     }
 
     public void registerListener(Listener ...listeners) {
