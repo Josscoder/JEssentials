@@ -6,8 +6,10 @@ import cn.nukkit.plugin.PluginBase;
 import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
 import me.josscoder.jessentials.api.LuckPermsAPI;
+import me.josscoder.jessentials.command.LobbyCommand;
 import me.josscoder.jessentials.command.LuckFormatCommand;
 import me.josscoder.jessentials.listener.GeneralListener;
+import me.josscoder.jessentials.manager.LobbyManager;
 import me.josscoder.jessentials.manager.LuckFormatManager;
 
 import java.util.Arrays;
@@ -19,6 +21,7 @@ public class JEssentialsPlugin extends PluginBase {
     private static JEssentialsPlugin instance;
 
     private LuckFormatManager luckFormatManager;
+    private LobbyManager lobbyManager;
 
     @Override
     public void onLoad() {
@@ -35,7 +38,7 @@ public class JEssentialsPlugin extends PluginBase {
         loadManagers();
 
         registerListener(new GeneralListener(), luckFormatManager);
-        registerCommand(new LuckFormatCommand());
+        registerCommand(new LuckFormatCommand(), new LobbyCommand());
     }
 
     private void handleDebugTPSDrop() {
@@ -69,6 +72,7 @@ public class JEssentialsPlugin extends PluginBase {
 
     private void loadManagers() {
         luckFormatManager = new LuckFormatManager(getConfig());
+        lobbyManager = new LobbyManager(getConfig());
     }
 
     public void registerListener(Listener ...listeners) {

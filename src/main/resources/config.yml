@@ -17,4 +17,18 @@ luck-format:
     allow: true
     value: "{prefix} {name}"
 
+lobby:
+  groups:
+    - hub
+    - lobby
+    - hub-main
+    - lobby-main
+
+  #Modes:
+  #LOWEST: will balance the servers to have the same amount of players all
+  #FULL: will successively fill each server
+  #ANY: will get any lobby for the player
+  sort-mode: LOWEST
+
+# Decide if you want to debug when tps drop
 debug-tps-drop: false

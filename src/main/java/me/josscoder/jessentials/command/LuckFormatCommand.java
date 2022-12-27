@@ -34,9 +34,6 @@ public class LuckFormatCommand extends Command {
             case "help":
                 sendCommandList(sender, label);
                 break;
-            case "about":
-                sender.sendMessage(TextFormat.GREEN + "LuckFormat Plugin was made by Josscoder");
-                break;
             case "reload":
                 manager.reloadFromConfig();
                 sender.sendMessage(TextFormat.AQUA + "LuckFormat reloaded successfully!");
@@ -90,8 +87,6 @@ public class LuckFormatCommand extends Command {
         sender.sendMessage(TextFormat.colorize("&2&lLuckFormat Plugin&r" +
                 "\n" +
                 "&7- /% help: &fShow command list" +
-                "\n" +
-                "&7- /% about: &fShow the credits" +
                 "\n" +
                 "&7- /% reload: &fReload the configuration" +
                 "\n" +
