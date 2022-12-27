@@ -7,21 +7,19 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
-import lombok.Getter;
-import lombok.Setter;
 import me.josscoder.jessentials.JEssentialsPlugin;
 import me.josscoder.jessentials.api.LuckPermsAPI;
 
 import java.util.SortedMap;
 
-@Getter
-@Setter
 public class LuckFormatManager implements Listener {
 
     private final Config config;
     private final ConfigSection formatSection;
+
     private String chatFormat;
     private String tagFormat;
+
     private boolean allowChatFormat;
     private boolean allowTagFormat;
 
@@ -82,6 +80,38 @@ public class LuckFormatManager implements Listener {
                 .replace("{suffixes}", String.join("", playerSuffixes.values()))
                 .replace("{username-color}", luckPermsAPI.getUsernameColor(player))
                 .replace("{message-color}", luckPermsAPI.getMessageColor(player));
+    }
+
+    public void setChatFormat(String chatFormat) {
+        this.chatFormat = chatFormat;
+        formatSection.set("chat.value", chatFormat);
+        config.save();
+    }
+
+    public void setTagFormat(String tagFormat) {
+        this.tagFormat = tagFormat;
+        formatSection.set("tag.value", tagFormat);
+        config.save();
+    }
+
+    public boolean allowChatFormat() {
+        return allowChatFormat;
+    }
+
+    public void setAllowChatFormat(boolean allowChatFormat) {
+        this.allowChatFormat = allowChatFormat;
+        formatSection.set("chat.allow", allowChatFormat);
+        config.save();
+    }
+
+    public boolean allowTagFormat() {
+        return allowTagFormat;
+    }
+
+    public void setAllowTagFormat(boolean allowTagFormat) {
+        this.allowTagFormat = allowTagFormat;
+        formatSection.set("tag.allow", allowTagFormat);
+        config.save();
     }
 
     public void reloadFromConfig() {
