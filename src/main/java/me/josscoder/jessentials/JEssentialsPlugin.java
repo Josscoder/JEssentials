@@ -39,22 +39,24 @@ public class JEssentialsPlugin extends PluginBase {
     }
 
     private void handleDebugTPSDrop() {
-        if (getConfig().getBoolean("debug-tps-drop")) {
-            getServer().getScheduler().scheduleRepeatingTask(this, () -> {
-                float tps = getServer().getTicksPerSecond();
-                if (tps >= 20.0) return;
+        if (!getConfig().getBoolean("debug-tps-drop")) return;
 
-                String message = "There was a drop in Ticks per Second (TPS): " + tps;
+        getLogger().info("I will notify you when there is a drop in TPS");
 
-                getServer().getOnlinePlayers()
-                        .values()
-                        .stream()
-                        .filter(player -> player.hasPermission("debug.tps.drop.fall.permission"))
-                        .forEach(player -> player.sendMessage(message));
+        getServer().getScheduler().scheduleRepeatingTask(this, () -> {
+            float tps = getServer().getTicksPerSecond();
+            if ((int) tps >= 20) return;
 
-                getLogger().warning(message);
-            }, 20);
-        }
+            String message = "There was a drop in Ticks per Second (TPS): " + tps;
+
+            getServer().getOnlinePlayers()
+                    .values()
+                    .stream()
+                    .filter(player -> player.hasPermission("debug.tps.drop.fall.permission"))
+                    .forEach(player -> player.sendMessage(message));
+
+            getLogger().warning(message);
+        }, 20);
     }
 
     private void loadAPIS() {
