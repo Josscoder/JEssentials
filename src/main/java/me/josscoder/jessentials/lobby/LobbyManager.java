@@ -7,8 +7,9 @@ import me.josscoder.jbridge.service.ServiceInfo;
 import me.josscoder.jessentials.JEssentialsPlugin;
 import me.josscoder.jessentials.manager.Manager;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LobbyManager extends Manager {
 
@@ -53,8 +54,8 @@ public class LobbyManager extends Manager {
         config.save();
     }
 
-    public List<ServiceInfo> getLobbyServices() {
-        List<ServiceInfo> services = new ArrayList<>();
+    public Set<ServiceInfo> getLobbyServices() {
+        Set<ServiceInfo> services = new HashSet<>();
         lobbyGroups.forEach(lobbyGroup -> services.addAll(
                 JBridgeCore.getInstance().getServiceHandler().getGroupServices(lobbyGroup)
         ));

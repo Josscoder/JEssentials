@@ -71,7 +71,8 @@ public class ItemManager extends Manager {
     public List<ItemBuilder> getGroupItems(String group) {
         return items.values().stream().filter(itemBuilder -> Arrays.stream(itemBuilder.getGroups())
                 .collect(Collectors.toList())
-                .contains(group)).collect(Collectors.toList());
+                .contains(group))
+                .collect(Collectors.toList());
     }
 
     @Override
