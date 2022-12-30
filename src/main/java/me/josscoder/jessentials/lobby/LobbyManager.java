@@ -1,28 +1,29 @@
-package me.josscoder.jessentials.manager;
+package me.josscoder.jessentials.lobby;
 
-import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
 import me.josscoder.jbridge.JBridgeCore;
 import me.josscoder.jbridge.service.ServiceHandler;
 import me.josscoder.jbridge.service.ServiceInfo;
+import me.josscoder.jessentials.JEssentialsPlugin;
+import me.josscoder.jessentials.manager.Manager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LobbyManager {
+public class LobbyManager extends Manager {
 
-    private final Config config;
     private final ConfigSection lobbySection;
 
     private List<String> lobbyGroups;
     private String sortMode;
 
-    public LobbyManager(Config config) {
-        this.config = config;
+    public LobbyManager() {
+        super(JEssentialsPlugin.getInstance().getConfig());
         this.lobbySection = config.getSection("lobby");
     }
 
-    private void init() {
+    @Override
+    public void init() {
         lobbyGroups = lobbySection.getStringList("groups");
         sortMode = lobbySection.getString("sortmode");
     }
@@ -75,4 +76,7 @@ public class LobbyManager {
     public void reloadFromConfig() {
         init();
     }
+
+    @Override
+    public void close() {}
 }

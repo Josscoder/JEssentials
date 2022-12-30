@@ -1,20 +1,19 @@
-package me.josscoder.jessentials.manager;
+package me.josscoder.jessentials.luckformat;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
-import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
 import me.josscoder.jessentials.JEssentialsPlugin;
-import me.josscoder.jessentials.api.LuckPermsAPI;
+import me.josscoder.jessentials.luckperms.LuckPermsAPI;
+import me.josscoder.jessentials.manager.Manager;
 
 import java.util.SortedMap;
 
-public class LuckFormatManager implements Listener {
+public class LuckFormatManager extends Manager implements Listener {
 
-    private final Config config;
     private final ConfigSection formatSection;
 
     private String chatFormat;
@@ -23,13 +22,13 @@ public class LuckFormatManager implements Listener {
     private boolean allowChatFormat;
     private boolean allowTagFormat;
 
-    public LuckFormatManager(Config config) {
-        this.config = config;
+    public LuckFormatManager() {
+        super(JEssentialsPlugin.getInstance().getConfig());
         this.formatSection = config.getSection("luck-format");
-        init();
     }
 
-    private void init() {
+    @Override
+    public void init() {
         allowChatFormat = formatSection.getBoolean("chat.allow");
         chatFormat = formatSection.getString("chat.value");
         allowTagFormat = formatSection.getBoolean("tag.allow");
@@ -122,4 +121,7 @@ public class LuckFormatManager implements Listener {
     private void onChat(PlayerChatEvent event) {
         if (allowChatFormat) event.setFormat(getFormattedPlayerChat(event.getPlayer(), event.getMessage()));
     }
+
+    @Override
+    public void close() {}
 }

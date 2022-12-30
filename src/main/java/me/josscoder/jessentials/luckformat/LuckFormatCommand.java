@@ -1,10 +1,9 @@
-package me.josscoder.jessentials.command;
+package me.josscoder.jessentials.luckformat;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import me.josscoder.jessentials.JEssentialsPlugin;
-import me.josscoder.jessentials.manager.LuckFormatManager;
 
 public class LuckFormatCommand extends Command {
 

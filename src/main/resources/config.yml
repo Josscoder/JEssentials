@@ -1,3 +1,6 @@
+# Decide if you want to debug when tps drop
+debug-tps-drop: false
+
 # Placeholders:
 # {message} - the chat message, only for chat-format
 # {name} - the player's name
@@ -17,6 +20,7 @@ luck-format:
     allow: true
     value: "{prefix} {name}"
 
+# Configurations to handle JBridge
 lobby:
   groups:
     - hub
@@ -30,5 +34,17 @@ lobby:
   #ANY: will get any lobby for the player
   sort-mode: LOWEST
 
-# Decide if you want to debug when tps drop
-debug-tps-drop: false
+items:
+  TEST:
+    id: 17
+    meta: 0
+    count: 1
+    customName: "&r&cHello"
+    transferable: true
+    commands:
+      - "say hi"
+    enchantments:
+      - "17"
+    groups:
+      - lobby
+

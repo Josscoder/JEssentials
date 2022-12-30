@@ -6,12 +6,13 @@ import cn.nukkit.plugin.PluginBase;
 import com.denzelcode.form.FormAPI;
 import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
-import me.josscoder.jessentials.api.LuckPermsAPI;
-import me.josscoder.jessentials.command.LobbyCommand;
-import me.josscoder.jessentials.command.LuckFormatCommand;
+import me.josscoder.jessentials.customitem.ItemManager;
+import me.josscoder.jessentials.luckperms.LuckPermsAPI;
+import me.josscoder.jessentials.lobby.LobbyCommand;
+import me.josscoder.jessentials.luckformat.LuckFormatCommand;
 import me.josscoder.jessentials.listener.GeneralListener;
-import me.josscoder.jessentials.manager.LobbyManager;
-import me.josscoder.jessentials.manager.LuckFormatManager;
+import me.josscoder.jessentials.lobby.LobbyManager;
+import me.josscoder.jessentials.luckformat.LuckFormatManager;
 
 import java.util.Arrays;
 
@@ -23,6 +24,7 @@ public class JEssentialsPlugin extends PluginBase {
 
     private LuckFormatManager luckFormatManager;
     private LobbyManager lobbyManager;
+    private ItemManager itemManager;
 
     @Override
     public void onLoad() {
@@ -74,8 +76,14 @@ public class JEssentialsPlugin extends PluginBase {
     }
 
     private void loadManagers() {
-        luckFormatManager = new LuckFormatManager(getConfig());
-        lobbyManager = new LobbyManager(getConfig());
+        luckFormatManager = new LuckFormatManager();
+        luckFormatManager.init();
+
+        lobbyManager = new LobbyManager();
+        lobbyManager.init();
+
+        itemManager = new ItemManager();
+        itemManager.init();
     }
 
     public void registerListener(Listener ...listeners) {

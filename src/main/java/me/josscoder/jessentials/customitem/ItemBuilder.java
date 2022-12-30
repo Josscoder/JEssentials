@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.util;
+package me.josscoder.jessentials.customitem;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.Cancellable;
@@ -27,7 +27,8 @@ import java.util.function.BiConsumer;
 @Data
 public class ItemBuilder implements Listener {
 
-    private final String uniqueId = UUID.randomUUID().toString();
+    private String uniqueId = UUID.randomUUID().toString();
+    private int index;
     private int id;
     private int meta;
     private int count;
@@ -37,6 +38,7 @@ public class ItemBuilder implements Listener {
     private Enchantment[] enchantments = new Enchantment[]{};
     private boolean transferable = false;
     private String[] commands = new String[]{};
+    private String[] groups = new String[]{};
 
     private static final String NBT_ITEM_KEY = "itemBuilder";
     private static final String NBT_COOLDOWN_KEY = "itemBuilderCooldown";
@@ -50,9 +52,11 @@ public class ItemBuilder implements Listener {
 
     private BiConsumer<Player, Action> handler = (player, action) -> {};
 
-    public Item build() {
+    public ItemBuilder() {
         JEssentialsPlugin.getInstance().registerListener(this);
+    }
 
+    public Item build() {
         customData.putString(NBT_ITEM_KEY, uniqueId);
 
         Item item = new Item(id, meta, count)

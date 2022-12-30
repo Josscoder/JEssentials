@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.command;
+package me.josscoder.jessentials.lobby;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
@@ -6,7 +6,6 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import me.josscoder.jbridge.nukkit.JBridgeNukkit;
 import me.josscoder.jessentials.JEssentialsPlugin;
-import me.josscoder.jessentials.manager.LobbyManager;
 
 public class LobbyCommand extends Command {
 
