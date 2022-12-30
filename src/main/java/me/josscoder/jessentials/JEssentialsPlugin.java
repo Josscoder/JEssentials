@@ -3,6 +3,7 @@ package me.josscoder.jessentials;
 import cn.nukkit.command.Command;
 import cn.nukkit.event.Listener;
 import cn.nukkit.plugin.PluginBase;
+import com.denzelcode.form.FormAPI;
 import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
 import me.josscoder.jessentials.api.LuckPermsAPI;
@@ -68,6 +69,8 @@ public class JEssentialsPlugin extends PluginBase {
 
         ScoreboardAPI scoreboardAPI = new ScoreboardAPI();
         scoreboardAPI.init();
+
+        FormAPI.init(this);
     }
 
     private void loadManagers() {

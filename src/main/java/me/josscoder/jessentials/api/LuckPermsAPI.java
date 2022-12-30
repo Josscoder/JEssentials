@@ -33,8 +33,7 @@ public class LuckPermsAPI {
     }
 
     public CachedMetaData getCachedMetaData(Player player) {
-        return provider == null ? null
-                : provider.getPlayerAdapter(Player.class)
+        return provider == null ? null : provider.getPlayerAdapter(Player.class)
                 .getUser(player)
                 .getCachedData()
                 .getMetaData();
@@ -103,8 +102,7 @@ public class LuckPermsAPI {
     }
 
     public String getPlayerGroup(Player player) {
-        return provider == null ? "Default"
-                : provider.getPlayerAdapter(Player.class)
+        return provider == null ? "Default" : provider.getPlayerAdapter(Player.class)
                 .getUser(player)
                 .getPrimaryGroup();
     }
