@@ -20,6 +20,7 @@ import lombok.Data;
 import me.josscoder.jessentials.JEssentialsPlugin;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
@@ -35,6 +36,7 @@ public class ItemBuilder implements Listener {
     private String[] lore = new String[]{};
     private Enchantment[] enchantments = new Enchantment[]{};
     private boolean transferable = false;
+    private String[] commands = new String[]{};
 
     private static final String NBT_ITEM_KEY = "itemBuilder";
     private static final String NBT_COOLDOWN_KEY = "itemBuilderCooldown";
@@ -76,6 +78,7 @@ public class ItemBuilder implements Listener {
 
         player.namedTag.putLong(NBT_COOLDOWN_KEY, Instant.now().toEpochMilli());
         handler.accept(player, action);
+        Arrays.stream(commands).forEach(command -> player.getServer().dispatchCommand(player, command));
     }
 
     @EventHandler
