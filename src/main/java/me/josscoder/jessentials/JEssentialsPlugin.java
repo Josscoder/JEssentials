@@ -10,9 +10,10 @@ import me.josscoder.jessentials.customitem.ItemManager;
 import me.josscoder.jessentials.luckperms.LuckPermsAPI;
 import me.josscoder.jessentials.lobby.LobbyCommand;
 import me.josscoder.jessentials.luckformat.LuckFormatCommand;
-import me.josscoder.jessentials.listener.GeneralListener;
 import me.josscoder.jessentials.lobby.LobbyManager;
 import me.josscoder.jessentials.luckformat.LuckFormatManager;
+import me.josscoder.jessentials.worldprotect.WorldProtectCommand;
+import me.josscoder.jessentials.worldprotect.WorldProtectManager;
 
 import java.util.Arrays;
 
@@ -25,6 +26,7 @@ public class JEssentialsPlugin extends PluginBase {
     private LuckFormatManager luckFormatManager;
     private LobbyManager lobbyManager;
     private ItemManager itemManager;
+    private WorldProtectManager worldProtectManager;
 
     @Override
     public void onLoad() {
@@ -40,8 +42,17 @@ public class JEssentialsPlugin extends PluginBase {
         loadAPIS();
         loadManagers();
 
-        registerListener(new GeneralListener(), luckFormatManager);
-        registerCommand(new LuckFormatCommand(), new LobbyCommand());
+        registerListener(
+                new NetworkListener(),
+                luckFormatManager,
+                itemManager
+        );
+
+        registerCommand(
+                new LuckFormatCommand(),
+                new LobbyCommand(),
+                new WorldProtectCommand()
+        );
     }
 
     private void handleDebugTPSDrop() {
@@ -84,6 +95,9 @@ public class JEssentialsPlugin extends PluginBase {
 
         itemManager = new ItemManager();
         itemManager.init();
+
+        worldProtectManager = new WorldProtectManager();
+        worldProtectManager.init();
     }
 
     public void registerListener(Listener ...listeners) {

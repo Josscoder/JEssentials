@@ -20,12 +20,12 @@ public class LuckFormatCommand extends Command {
     public boolean execute(CommandSender sender, String label, String[] args) {
         if (!testPermission(sender)) return false;
 
-        LuckFormatManager manager = JEssentialsPlugin.getInstance().getLuckFormatManager();
-
         if (args.length == 0) {
             sender.sendMessage(String.format(getUsage(), label));
             return false;
         }
+
+        LuckFormatManager manager = JEssentialsPlugin.getInstance().getLuckFormatManager();
 
         String childArg = args[0].toLowerCase();
 

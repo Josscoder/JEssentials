@@ -15,7 +15,6 @@ public class LobbyCommand extends Command {
                 "/lobby",
                 new String[]{"hub"}
         );
-        setPermission("lobby.permission");
     }
 
     @Override
@@ -36,7 +35,7 @@ public class LobbyCommand extends Command {
             return true;
         }
 
-        if (testPermission(sender) && args.length > 0) {
+        if (sender.hasPermission("lobby.permission") && args.length > 0) {
             LobbyManager manager = JEssentialsPlugin.getInstance().getLobbyManager();
 
             String childArg = args[0].toLowerCase();

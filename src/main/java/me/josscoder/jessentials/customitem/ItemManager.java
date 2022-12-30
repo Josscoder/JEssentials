@@ -1,6 +1,9 @@
 package me.josscoder.jessentials.customitem;
 
 import cn.nukkit.Player;
+import cn.nukkit.event.EventHandler;
+import cn.nukkit.event.Listener;
+import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.utils.ConfigSection;
 import lombok.Getter;
@@ -10,7 +13,7 @@ import me.josscoder.jessentials.manager.Manager;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ItemManager extends Manager {
+public class ItemManager extends Manager implements Listener {
 
     private final ConfigSection itemSection;
 
@@ -77,4 +80,9 @@ public class ItemManager extends Manager {
 
     @Override
     public void close() {}
+
+    @EventHandler
+    private void onJoin(PlayerJoinEvent event) {
+        switchGroupItems("lobby", event.getPlayer());
+    }
 }

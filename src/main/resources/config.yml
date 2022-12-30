@@ -1,6 +1,10 @@
 # Decide if you want to debug when tps drop
 debug-tps-drop: false
 
+# Protect any world
+world-protect:
+  world: true
+
 # Placeholders:
 # {message} - the chat message, only for chat-format
 # {name} - the player's name
@@ -35,7 +39,7 @@ lobby:
   sort-mode: LOWEST
 
 items:
-  TEST:
+  test:
     index: 0
     id: 17
     meta: 0
@@ -48,4 +52,3 @@ items:
       - "17"
     groups:
       - lobby
-
