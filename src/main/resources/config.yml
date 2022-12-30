@@ -36,6 +36,7 @@ lobby:
 
 items:
   TEST:
+    index: 0
     id: 17
     meta: 0
     count: 1

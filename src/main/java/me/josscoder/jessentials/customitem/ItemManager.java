@@ -27,6 +27,7 @@ public class ItemManager extends Manager {
         itemSection.getKeys(false).forEach(key -> {
             ItemBuilder itemBuilder = new ItemBuilder();
             itemBuilder.setUniqueId(key);
+            itemBuilder.setIndex(itemSection.getInt(key + ".index", 0));
             itemBuilder.setId(itemSection.getInt(key + ".id", 0));
             itemBuilder.setMeta(itemSection.getInt(key + ".meta", 0));
             itemBuilder.setCount(itemSection.getInt(key + ".count", 1));
@@ -42,7 +43,7 @@ public class ItemManager extends Manager {
             enchantmentsList.forEach(enchantment -> {
                 String[] split = enchantment.split(":");
                 enchantments.add(Enchantment.getEnchantment(Integer.parseInt(split[0]))
-                        .setLevel(split[1] != null ? Integer.parseInt(split[1]) : 1)
+                        .setLevel(split.length > 2 ? Integer.parseInt(split[1]) : 1)
                 );
             });
 
