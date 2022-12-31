@@ -24,20 +24,6 @@ luck-format:
     allow: true
     value: "{prefix} {name}"
 
-# Configurations to handle JBridge
-lobby:
-  groups:
-    - hub
-    - lobby
-    - hub-main
-    - lobby-main
-
-  #Modes:
-  #LOWEST: will balance the servers to have the same amount of players all
-  #FULL: will successively fill each server
-  #ANY: will get any lobby for the player
-  sort-mode: LOWEST
-
 items:
   test:
     index: 0

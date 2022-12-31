@@ -4,5 +4,3 @@ api: 1.0.0
 version: ${project.version}
 author: Josscoder
 load: POSTWORLD
-depend: ["JBridge"]
-loadbefore: ["JBridge"]

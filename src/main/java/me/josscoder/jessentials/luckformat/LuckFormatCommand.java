@@ -10,7 +10,7 @@ public class LuckFormatCommand extends Command {
     public LuckFormatCommand() {
         super("luckformat",
                 "Handles the format of LuckPerms groups",
-                TextFormat.RED + "/%s help",
+                TextFormat.RED + "Usage: /%s help",
                 new String[]{"lf"}
         );
         setPermission("luckformat.permission");
@@ -65,7 +65,7 @@ public class LuckFormatCommand extends Command {
                         manager.setChatFormat(value);
                         sender.sendMessage(TextFormat.GREEN + "You have established a new chat format");
                     } else if (childArg.equalsIgnoreCase("settagformat")) {
-                        manager.setTagFormat(value);
+                        manager.setTagFormat(value.replace("\\", "\n"));
                         sender.sendMessage(TextFormat.GREEN + "You have established a new tag format");
                     }
 

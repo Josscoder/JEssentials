@@ -63,7 +63,7 @@ public class ItemBuilder implements Listener {
                 .setCustomBlockData(customData)
                 .setLore(lore)
                 .setCustomName(TextFormat.colorize(customName));
-        item.addEnchantment(enchantments);
+        Arrays.stream(enchantments).forEach(enchantment -> item.addEnchantment(enchantment));
 
         return item;
     }

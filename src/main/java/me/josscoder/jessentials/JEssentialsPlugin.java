@@ -8,9 +8,7 @@ import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
 import me.josscoder.jessentials.customitem.ItemManager;
 import me.josscoder.jessentials.luckperms.LuckPermsAPI;
-import me.josscoder.jessentials.lobby.LobbyCommand;
 import me.josscoder.jessentials.luckformat.LuckFormatCommand;
-import me.josscoder.jessentials.lobby.LobbyManager;
 import me.josscoder.jessentials.luckformat.LuckFormatManager;
 import me.josscoder.jessentials.worldprotect.WorldProtectCommand;
 import me.josscoder.jessentials.worldprotect.WorldProtectManager;
@@ -24,7 +22,6 @@ public class JEssentialsPlugin extends PluginBase {
     private static JEssentialsPlugin instance;
 
     private LuckFormatManager luckFormatManager;
-    private LobbyManager lobbyManager;
     private ItemManager itemManager;
     private WorldProtectManager worldProtectManager;
 
@@ -45,12 +42,12 @@ public class JEssentialsPlugin extends PluginBase {
         registerListener(
                 new NetworkListener(),
                 luckFormatManager,
-                itemManager
+                itemManager,
+                worldProtectManager
         );
 
         registerCommand(
                 new LuckFormatCommand(),
-                new LobbyCommand(),
                 new WorldProtectCommand()
         );
     }
@@ -89,9 +86,6 @@ public class JEssentialsPlugin extends PluginBase {
     private void loadManagers() {
         luckFormatManager = new LuckFormatManager();
         luckFormatManager.init();
-
-        lobbyManager = new LobbyManager();
-        lobbyManager.init();
 
         itemManager = new ItemManager();
         itemManager.init();

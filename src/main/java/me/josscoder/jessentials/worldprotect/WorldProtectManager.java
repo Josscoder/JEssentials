@@ -1,5 +1,7 @@
 package me.josscoder.jessentials.worldprotect;
 
+import cn.nukkit.Player;
+import cn.nukkit.entity.Entity;
 import cn.nukkit.event.Cancellable;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
@@ -50,19 +52,29 @@ public class WorldProtectManager extends Manager implements Listener {
     }
 
     public void reloadFromConfig() {
+        worldsToProtect.clear();
         init();
     }
 
     @Override
     public void close() {}
 
-    private void handleCancel(Level level, Cancellable cancelable) {
-        if (containsWorld(level.getName())) cancelable.setCancelled();
+    private boolean handleCancel(Level level, Cancellable cancelable) {
+        boolean cancel = containsWorld(level.getName());
+        cancelable.setCancelled(cancel);
+        return cancel;
     }
 
     @EventHandler
     private void onDamage(EntityDamageEvent event) {
-        handleCancel(event.getEntity().getLevel(), event);
+        Entity entity = event.getEntity();
+        if (!(entity instanceof Player)) return;
+
+        if (handleCancel(entity.getLevel(), event) &&
+                event.getCause().equals(EntityDamageEvent.DamageCause.VOID)
+        ) {
+            event.getEntity().teleport(entity.getLevel().getSafeSpawn());
+        }
     }
 
     @EventHandler

@@ -10,7 +10,7 @@ public class WorldProtectCommand extends Command {
     public WorldProtectCommand() {
         super("worldprotect",
                 "Protect worlds",
-                TextFormat.RED + "/%s help",
+                TextFormat.RED + "Usage: /%s help",
                 new String[]{"wp"}
         );
         setPermission("worldprotect.permission");
@@ -38,8 +38,6 @@ public class WorldProtectCommand extends Command {
                 sender.sendMessage(TextFormat.AQUA + "WorldProtect reloaded successfully!");
                 break;
             default:
-                if (args.length != 2) return false;
-
                 String world = args[1];
 
                 if (manager.containsWorld(world)) {

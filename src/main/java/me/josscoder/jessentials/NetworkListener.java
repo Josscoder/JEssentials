@@ -15,7 +15,7 @@ public class NetworkListener implements Listener {
 
         Player player = event.getPlayer();
 
-        player.teleport(Server.getInstance().getDefaultLevel().getSafeSpawn().add(0, 1));
+        player.teleport(Server.getInstance().getDefaultLevel().getSafeSpawn());
     }
 
     @EventHandler
