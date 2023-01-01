@@ -9,6 +9,7 @@ import cn.nukkit.event.block.BlockPlaceEvent;
 import cn.nukkit.event.inventory.InventoryMoveItemEvent;
 import cn.nukkit.event.inventory.InventoryPickupItemEvent;
 import cn.nukkit.event.inventory.InventoryTransactionEvent;
+import cn.nukkit.event.player.PlayerDeathEvent;
 import cn.nukkit.event.player.PlayerDropItemEvent;
 import cn.nukkit.event.player.PlayerInteractEntityEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
@@ -63,7 +64,7 @@ public class ItemBuilder implements Listener {
                 .setCustomBlockData(customData)
                 .setLore(lore)
                 .setCustomName(TextFormat.colorize(customName));
-        Arrays.stream(enchantments).forEach(enchantment -> item.addEnchantment(enchantment));
+        Arrays.stream(enchantments).forEach(item::addEnchantment);
 
         return item;
     }
@@ -105,7 +106,7 @@ public class ItemBuilder implements Listener {
         handleExecution(event.getItem(), event.getPlayer(), Action.INTERACT_ENTITY);
     }
 
-    private void handleCancel(Item item, Cancellable cancellable) {
+    private void handleTransferCancel(Item item, Cancellable cancellable) {
         if (item.getCustomBlockData() == null) return;
 
         String itemUniqueId = item.getCustomBlockData().getString(NBT_ITEM_KEY);
@@ -116,17 +117,17 @@ public class ItemBuilder implements Listener {
 
     @EventHandler
     private void onDropItem(PlayerDropItemEvent event) {
-        handleCancel(event.getItem(), event);
+        handleTransferCancel(event.getItem(), event);
     }
 
     @EventHandler
     private void onPickupItem(InventoryPickupItemEvent event) {
-        handleCancel(event.getItem().getItem(), event);
+        handleTransferCancel(event.getItem().getItem(), event);
     }
 
     @EventHandler
     private void onMoveItem(InventoryMoveItemEvent event) {
-        handleCancel(event.getItem(), event);
+        handleTransferCancel(event.getItem(), event);
     }
 
     @EventHandler
@@ -136,7 +137,13 @@ public class ItemBuilder implements Listener {
                     ? action.getSourceItem()
                     : action.getTargetItem();
 
-            handleCancel(item, event);
+            handleTransferCancel(item, event);
         });
+    }
+
+    @EventHandler
+    private void onPlayerDeath(PlayerDeathEvent event) {
+        if (event.getKeepInventory()) return;
+        Arrays.stream(event.getDrops()).forEach(item -> handleTransferCancel(item, event));
     }
 }
