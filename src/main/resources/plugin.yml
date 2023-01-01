@@ -4,4 +4,6 @@ api: 1.0.0
 version: ${project.version}
 author: Josscoder
 load: POSTWORLD
-loadbefore: ["JBridge", "LuckPerms"]
+depend:
+  - JBridge
+  - LuckPerms
