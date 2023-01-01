@@ -48,7 +48,7 @@ public class LobbyCommand extends Command {
                     sender.sendMessage(TextFormat.AQUA + "Lobby reloaded successfully!");
                     break;
                 case "toggleselector":
-                    boolean allow = !manager.isAllowSelector();
+                    boolean allow = !manager.allowSelector();
                     manager.setAllowSelector(allow);
 
                     if (allow) {
@@ -104,6 +104,8 @@ public class LobbyCommand extends Command {
                 "&7- /% help: &fShow command list" +
                 "\n" +
                 "&7- /% reload: &fReload the configuration" +
+                "\n" +
+                "&7- /% toggleselector: &fToggle lobby selector" +
                 "\n" +
                 "&7- /% addgroup <group>: &fAdd group"  +
                 "\n" +

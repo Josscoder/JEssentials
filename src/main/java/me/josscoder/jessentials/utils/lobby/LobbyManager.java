@@ -59,7 +59,7 @@ public class LobbyManager extends Manager {
         config.save();
     }
 
-    public boolean isAllowSelector() {
+    public boolean allowSelector() {
         return allowSelector;
     }
 

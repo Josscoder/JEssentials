@@ -6,7 +6,6 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import com.denzelcode.form.window.SimpleWindowForm;
 import me.josscoder.jbridge.nukkit.JBridgeNukkit;
-import me.josscoder.jessentials.utils.lobby.LobbyManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,7 +20,7 @@ public class LobbySelectorCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player) || LobbyManager.getInstance().isAllowSelector()) return false;
+        if (!(sender instanceof Player) || !LobbyManager.getInstance().allowSelector()) return false;
         Player player = (Player) sender;
 
         SimpleWindowForm windowForm = new SimpleWindowForm("Lobby Selector");
