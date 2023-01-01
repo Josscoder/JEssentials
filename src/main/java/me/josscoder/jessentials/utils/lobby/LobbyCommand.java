@@ -47,16 +47,6 @@ public class LobbyCommand extends Command {
                     manager.reloadFromConfig();
                     sender.sendMessage(TextFormat.AQUA + "Lobby reloaded successfully!");
                     break;
-                case "toggleselector":
-                    boolean allow = !manager.allowSelector();
-                    manager.setAllowSelector(allow);
-
-                    if (allow) {
-                        sender.sendMessage(TextFormat.GREEN + "You have allowed the lobby selector!");
-                    } else {
-                        sender.sendMessage(TextFormat.RED + "You have restricted the lobby selector!");
-                    }
-                    break;
                 default:
                     if (args.length == 2) {
                         String value = args[1];
@@ -104,8 +94,6 @@ public class LobbyCommand extends Command {
                 "&7- /% help: &fShow command list" +
                 "\n" +
                 "&7- /% reload: &fReload the configuration" +
-                "\n" +
-                "&7- /% toggleselector: &fToggle lobby selector" +
                 "\n" +
                 "&7- /% addgroup <group>: &fAdd group"  +
                 "\n" +
