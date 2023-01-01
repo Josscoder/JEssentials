@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.luckperms;
+package me.josscoder.jessentials.utils;
 
 import cn.nukkit.Player;
 import cn.nukkit.utils.TextFormat;

@@ -1,9 +1,8 @@
-package me.josscoder.jessentials.luckformat;
+package me.josscoder.jessentials.utils.luckformat;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
-import me.josscoder.jessentials.JEssentialsPlugin;
 
 public class LuckFormatCommand extends Command {
 
@@ -25,7 +24,7 @@ public class LuckFormatCommand extends Command {
             return false;
         }
 
-        LuckFormatManager manager = JEssentialsPlugin.getInstance().getLuckFormatManager();
+        LuckFormatManager manager = LuckFormatManager.getInstance();
 
         String childArg = args[0].toLowerCase();
 

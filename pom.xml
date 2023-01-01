@@ -86,6 +86,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.Josscoder.JBridge</groupId>
+            <artifactId>jbridge-nukkit</artifactId>
+            <version>v1.0.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.4</version>

@@ -1,9 +1,8 @@
-package me.josscoder.jessentials.worldprotect;
+package me.josscoder.jessentials.utils.worldprotect;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
-import me.josscoder.jessentials.JEssentialsPlugin;
 
 public class WorldProtectCommand extends Command {
 
@@ -25,7 +24,7 @@ public class WorldProtectCommand extends Command {
             return false;
         }
 
-        WorldProtectManager manager = JEssentialsPlugin.getInstance().getWorldProtectManager();
+        WorldProtectManager manager = WorldProtectManager.getInstance();
 
         String childArg = args[0].toLowerCase();
 

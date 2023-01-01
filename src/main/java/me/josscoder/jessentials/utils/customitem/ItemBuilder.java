@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.customitem;
+package me.josscoder.jessentials.utils.customitem;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.Cancellable;

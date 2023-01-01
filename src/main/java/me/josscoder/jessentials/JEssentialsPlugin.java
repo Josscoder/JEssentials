@@ -6,12 +6,15 @@ import cn.nukkit.plugin.PluginBase;
 import com.denzelcode.form.FormAPI;
 import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
-import me.josscoder.jessentials.customitem.ItemManager;
-import me.josscoder.jessentials.luckperms.LuckPermsAPI;
-import me.josscoder.jessentials.luckformat.LuckFormatCommand;
-import me.josscoder.jessentials.luckformat.LuckFormatManager;
-import me.josscoder.jessentials.worldprotect.WorldProtectCommand;
-import me.josscoder.jessentials.worldprotect.WorldProtectManager;
+import me.josscoder.jessentials.command.LobbySelectorCommand;
+import me.josscoder.jessentials.utils.customitem.ItemManager;
+import me.josscoder.jessentials.utils.lobby.LobbyCommand;
+import me.josscoder.jessentials.utils.lobby.LobbyManager;
+import me.josscoder.jessentials.utils.LuckPermsAPI;
+import me.josscoder.jessentials.utils.luckformat.LuckFormatCommand;
+import me.josscoder.jessentials.utils.luckformat.LuckFormatManager;
+import me.josscoder.jessentials.utils.worldprotect.WorldProtectCommand;
+import me.josscoder.jessentials.utils.worldprotect.WorldProtectManager;
 
 import java.util.Arrays;
 
@@ -24,6 +27,7 @@ public class JEssentialsPlugin extends PluginBase {
     private LuckFormatManager luckFormatManager;
     private ItemManager itemManager;
     private WorldProtectManager worldProtectManager;
+    private LobbyManager lobbyManager;
 
     @Override
     public void onLoad() {
@@ -48,7 +52,9 @@ public class JEssentialsPlugin extends PluginBase {
 
         registerCommand(
                 new LuckFormatCommand(),
-                new WorldProtectCommand()
+                new WorldProtectCommand(),
+                new LobbyCommand(),
+                new LobbySelectorCommand()
         );
     }
 
@@ -86,6 +92,9 @@ public class JEssentialsPlugin extends PluginBase {
     private void loadManagers() {
         luckFormatManager = new LuckFormatManager();
         luckFormatManager.init();
+
+        lobbyManager = new LobbyManager();
+        lobbyManager.init();
 
         itemManager = new ItemManager();
         itemManager.init();

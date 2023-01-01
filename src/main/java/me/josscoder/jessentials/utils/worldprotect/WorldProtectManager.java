@@ -1,6 +1,7 @@
-package me.josscoder.jessentials.worldprotect;
+package me.josscoder.jessentials.utils.worldprotect;
 
 import cn.nukkit.Player;
+import cn.nukkit.block.BlockAir;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.event.Cancellable;
 import cn.nukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import cn.nukkit.event.inventory.InventoryTransactionEvent;
 import cn.nukkit.event.player.*;
 import cn.nukkit.level.Level;
 import cn.nukkit.utils.ConfigSection;
+import lombok.Getter;
 import me.josscoder.jessentials.JEssentialsPlugin;
 import me.josscoder.jessentials.manager.Manager;
 
@@ -22,9 +24,13 @@ public class WorldProtectManager extends Manager implements Listener {
     private final ConfigSection worldProtectSection;
     private final Set<String> worldsToProtect = new HashSet<>();
 
+    @Getter
+    private static WorldProtectManager instance;
+
     public WorldProtectManager() {
         super(JEssentialsPlugin.getInstance().getConfig());
         this.worldProtectSection = config.getSection("world-protect");
+        instance = this;
     }
 
     @Override
@@ -150,5 +156,10 @@ public class WorldProtectManager extends Manager implements Listener {
     @EventHandler
     private void onInventoryTransaction(InventoryTransactionEvent event) {
         handleCancel(event.getTransaction().getSource().getLevel(), event);
+    }
+
+    @EventHandler
+    private void onInteract(PlayerInteractEvent event) {
+        if (!(event.getBlock() instanceof BlockAir)) handleCancel(event.getBlock().getLevel(), event);
     }
 }

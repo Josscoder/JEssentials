@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.customitem;
+package me.josscoder.jessentials.utils.customitem;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
@@ -20,9 +20,13 @@ public class ItemManager extends Manager implements Listener {
     @Getter
     private final Map<String, ItemBuilder> items = new HashMap<>();
 
+    @Getter
+    private static ItemManager instance;
+
     public ItemManager() {
         super(JEssentialsPlugin.getInstance().getConfig());
         this.itemSection = config.getSection("items");
+        instance = this;
     }
 
     @Override

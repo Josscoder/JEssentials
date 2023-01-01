@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.luckformat;
+package me.josscoder.jessentials.utils.luckformat;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
@@ -6,8 +6,9 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.utils.ConfigSection;
+import lombok.Getter;
 import me.josscoder.jessentials.JEssentialsPlugin;
-import me.josscoder.jessentials.luckperms.LuckPermsAPI;
+import me.josscoder.jessentials.utils.LuckPermsAPI;
 import me.josscoder.jessentials.manager.Manager;
 
 import java.util.SortedMap;
@@ -22,9 +23,13 @@ public class LuckFormatManager extends Manager implements Listener {
     private boolean allowChatFormat;
     private boolean allowTagFormat;
 
+    @Getter
+    private static LuckFormatManager instance;
+
     public LuckFormatManager() {
         super(JEssentialsPlugin.getInstance().getConfig());
         this.formatSection = config.getSection("luck-format");
+        instance = this;
     }
 
     @Override
