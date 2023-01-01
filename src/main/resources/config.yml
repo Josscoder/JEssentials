@@ -47,6 +47,7 @@ items:
     count: 1
     customName: "&r&cHello"
     transferable: true
+    give-on-respawn: false
     commands:
       - "say hi"
     enchantments:

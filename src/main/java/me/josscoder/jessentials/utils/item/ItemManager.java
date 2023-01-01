@@ -31,7 +31,6 @@ public class ItemManager extends Manager implements Listener {
     @Getter
     private static ItemManager instance;
 
-    private static final String NBT_ITEM_KEY = "itemBuilder";
     private static final String NBT_COOLDOWN_KEY = "itemBuilderCooldown";
 
     public ItemManager() {
@@ -51,6 +50,7 @@ public class ItemManager extends Manager implements Listener {
             itemBuilder.setCount(itemSection.getInt(key + ".count", 1));
             itemBuilder.setCustomName(itemSection.getString(key + ".customName", ""));
             itemBuilder.setTransferable(itemSection.getBoolean(key + ".transferable", false));
+            itemBuilder.setGiveOnRespawn(itemSection.getBoolean(key + ".give-on-respawn", false));
 
             List<String> commands = itemSection.getStringList(key + ".commands");
             itemBuilder.setCommands(commands.toArray(new String[0]));
@@ -69,6 +69,7 @@ public class ItemManager extends Manager implements Listener {
 
             List<String> groups = itemSection.getStringList(key + ".groups");
             itemBuilder.setGroups(groups.toArray(new String[0]));
+            itemBuilder.store();
         });
     }
 
@@ -110,7 +111,7 @@ public class ItemManager extends Manager implements Listener {
     private void handleExecution(Item item, Player player, ItemBuilder.Action action) {
         if (item.getCustomBlockData() == null) return;
 
-        String itemUniqueId = item.getCustomBlockData().getString(NBT_ITEM_KEY);
+        String itemUniqueId = item.getCustomBlockData().getString(ItemBuilder.NBT_ITEM_KEY);
         if (itemUniqueId.isEmpty()) return;
 
         ItemBuilder customItem = getItem(itemUniqueId);
@@ -151,7 +152,7 @@ public class ItemManager extends Manager implements Listener {
     public boolean isTransferable(Item item) {
         if (item.getCustomBlockData() == null) return false;
 
-        String itemUniqueId = item.getCustomBlockData().getString(NBT_ITEM_KEY);
+        String itemUniqueId = item.getCustomBlockData().getString(ItemBuilder.NBT_ITEM_KEY);
         if (itemUniqueId.isEmpty()) return false;
 
         ItemBuilder customItem = getItem(itemUniqueId);
@@ -186,15 +187,23 @@ public class ItemManager extends Manager implements Listener {
                     ? action.getSourceItem()
                     : action.getTargetItem();
 
+            handleTransferCancel(item, event);
+        });
+    }
+
+    @EventHandler
+    private void onDeath(PlayerDeathEvent event) {
+        if (event.getKeepInventory()) return;
+        Arrays.stream(event.getDrops()).forEach(item -> {
             if (!isTransferable(item)) item.setCount(0);
         });
     }
 
     @EventHandler
-    private void onPlayerDeath(PlayerDeathEvent event) {
-        if (event.getKeepInventory()) return;
-        Arrays.stream(event.getDrops()).forEach(item -> {
-            if (!isTransferable(item)) item.setCount(0);
-        });
+    private void onRespawn(PlayerRespawnEvent event) {
+        items.values()
+                .stream()
+                .filter(ItemBuilder::isGiveOnRespawn)
+                .forEach(item -> event.getPlayer().getInventory().setItem(item.getIndex(), item.build()));
     }
 }

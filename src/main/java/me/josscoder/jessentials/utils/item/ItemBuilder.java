@@ -25,6 +25,7 @@ public class ItemBuilder implements Listener {
     private String[] lore = new String[]{};
     private Enchantment[] enchantments = new Enchantment[]{};
     private boolean transferable = false;
+    private boolean giveOnRespawn = false;
     private String[] commands = new String[]{};
     private String[] groups = new String[]{};
 
@@ -37,8 +38,11 @@ public class ItemBuilder implements Listener {
 
     private BiConsumer<Player, Action> handler = (player, action) -> {};
 
-    public ItemBuilder() {
+    public static final String NBT_ITEM_KEY = "itemBuilder";
+
+    public ItemBuilder store() {
         ItemManager.getInstance().storeItem(this);
+        return this;
     }
 
     public Item build() {

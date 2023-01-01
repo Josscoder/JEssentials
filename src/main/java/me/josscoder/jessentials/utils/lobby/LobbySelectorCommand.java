@@ -32,7 +32,7 @@ public class LobbySelectorCommand extends Command {
                 boolean containsPlayer = lobby.containsPlayer(player.getName());
 
                 windowForm.addButton(lobby.getShortId(),
-                        TextFormat.colorize(String.format("&bLobby #%s &8(%s/%s)\n%s",
+                        TextFormat.colorize(String.format("&3Lobby #%s &8(%s/%s)\n%s",
                                 i,
                                 lobby.getPlayersOnline(),
                                 lobby.getMaxPlayers(),
