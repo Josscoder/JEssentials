@@ -9,6 +9,9 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.*;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.inventory.InventoryTransactionEvent;
+import cn.nukkit.event.level.LevelLoadEvent;
+import cn.nukkit.event.level.ThunderChangeEvent;
+import cn.nukkit.event.level.WeatherChangeEvent;
 import cn.nukkit.event.player.*;
 import cn.nukkit.level.Level;
 import cn.nukkit.utils.ConfigSection;
@@ -67,7 +70,7 @@ public class WorldProtectManager extends Manager implements Listener {
 
     private boolean handleCancel(Level level, Cancellable cancelable) {
         boolean cancel = containsWorld(level.getName());
-        cancelable.setCancelled(cancel);
+        if (cancel) cancelable.setCancelled();
         return cancel;
     }
 
@@ -161,5 +164,24 @@ public class WorldProtectManager extends Manager implements Listener {
     @EventHandler
     private void onInteract(PlayerInteractEvent event) {
         if (!(event.getBlock() instanceof BlockAir)) handleCancel(event.getBlock().getLevel(), event);
+    }
+
+    @EventHandler
+    private void onWorldLoad(LevelLoadEvent event) {
+        Level level = event.getLevel();
+        level.setTime(Level.TIME_DAY);
+        level.stopTime();
+        level.setRaining(false);
+        level.setThundering(false);
+    }
+
+    @EventHandler
+    private void onWorldThunderChange(ThunderChangeEvent event) {
+        handleCancel(event.getLevel(), event);
+    }
+
+    @EventHandler
+    private void onWorldWeatherChange(WeatherChangeEvent event) {
+        handleCancel(event.getLevel(), event);
     }
 }

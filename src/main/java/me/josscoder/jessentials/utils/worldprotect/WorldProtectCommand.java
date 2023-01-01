@@ -37,7 +37,7 @@ public class WorldProtectCommand extends Command {
                 sender.sendMessage(TextFormat.AQUA + "WorldProtect reloaded successfully!");
                 break;
             default:
-                String world = args[1];
+                String world = args[0];
 
                 if (manager.containsWorld(world)) {
                     manager.unprotectWorld(world);

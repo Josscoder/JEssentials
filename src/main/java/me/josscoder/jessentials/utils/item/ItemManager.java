@@ -162,7 +162,7 @@ public class ItemManager extends Manager implements Listener {
     }
 
     private void handleTransferCancel(Item item, Cancellable cancellable) {
-        cancellable.setCancelled(!isTransferable(item));
+        if (!isTransferable(item)) cancellable.setCancelled();
     }
 
     @EventHandler

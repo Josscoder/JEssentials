@@ -32,6 +32,7 @@ public class LobbyManager extends Manager {
     public void init() {
         lobbyGroups = lobbySection.getStringList("groups");
         sortMode = lobbySection.getString("sort-mode");
+        allowSelector = lobbySection.getBoolean("allow-selector");
     }
 
     public boolean containsGroup(String group) {
