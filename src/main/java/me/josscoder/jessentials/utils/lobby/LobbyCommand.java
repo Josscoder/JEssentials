@@ -47,7 +47,7 @@ public class LobbyCommand extends Command {
                     manager.reloadFromConfig();
                     sender.sendMessage(TextFormat.AQUA + "Lobby reloaded successfully!");
                     break;
-                case "allowselector":
+                case "toggleselector":
                     boolean allow = !manager.isAllowSelector();
                     manager.setAllowSelector(allow);
 

@@ -6,7 +6,7 @@ import cn.nukkit.plugin.PluginBase;
 import com.denzelcode.form.FormAPI;
 import lombok.Getter;
 import me.iwareq.scoreboard.ScoreboardAPI;
-import me.josscoder.jessentials.command.LobbySelectorCommand;
+import me.josscoder.jessentials.utils.lobby.LobbySelectorCommand;
 import me.josscoder.jessentials.utils.customitem.ItemManager;
 import me.josscoder.jessentials.utils.lobby.LobbyCommand;
 import me.josscoder.jessentials.utils.lobby.LobbyManager;

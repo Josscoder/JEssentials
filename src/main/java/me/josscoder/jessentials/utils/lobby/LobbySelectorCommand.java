@@ -1,4 +1,4 @@
-package me.josscoder.jessentials.command;
+package me.josscoder.jessentials.utils.lobby;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
@@ -21,7 +21,7 @@ public class LobbySelectorCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) return false;
+        if (!(sender instanceof Player) || LobbyManager.getInstance().isAllowSelector()) return false;
         Player player = (Player) sender;
 
         SimpleWindowForm windowForm = new SimpleWindowForm("Lobby Selector");
