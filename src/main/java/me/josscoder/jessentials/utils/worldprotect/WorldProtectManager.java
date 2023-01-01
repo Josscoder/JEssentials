@@ -169,6 +169,7 @@ public class WorldProtectManager extends Manager implements Listener {
     @EventHandler
     private void onWorldLoad(LevelLoadEvent event) {
         Level level = event.getLevel();
+
         level.setTime(Level.TIME_DAY);
         level.stopTime();
         level.setRaining(false);
