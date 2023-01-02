@@ -88,7 +88,7 @@
         <dependency>
             <groupId>com.github.Josscoder.JBridge</groupId>
             <artifactId>jbridge-nukkit</artifactId>
-            <version>v1.0.7</version>
+            <version>1.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
