@@ -150,13 +150,13 @@ public class ItemManager extends Manager implements Listener {
     }
 
     public boolean isTransferable(Item item) {
-        if (item.getCustomBlockData() == null) return false;
+        if (item.getCustomBlockData() == null) return true;
 
         String itemUniqueId = item.getCustomBlockData().getString(ItemBuilder.NBT_ITEM_KEY);
-        if (itemUniqueId.isEmpty()) return false;
+        if (itemUniqueId.isEmpty()) return true;
 
         ItemBuilder customItem = getItem(itemUniqueId);
-        if (customItem == null) return false;
+        if (customItem == null) return true;
 
         return customItem.isTransferable();
     }

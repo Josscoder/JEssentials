@@ -137,7 +137,7 @@ public class WorldProtectManager extends Manager implements Listener {
     }
 
     @EventHandler
-    private void onDropItem(PlayerBedEnterEvent event) {
+    private void onBedEnter(PlayerBedEnterEvent event) {
         handleCancel(event.getPlayer().getLevel(), event);
     }
 
