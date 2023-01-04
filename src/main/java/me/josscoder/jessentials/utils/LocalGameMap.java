@@ -8,7 +8,7 @@ import me.josscoder.jessentials.JEssentialsPlugin;
 import java.io.File;
 import java.io.IOException;
 
-public class LocalMap {
+public class LocalGameMap {
 
     private final String gameId;
 
@@ -21,7 +21,7 @@ public class LocalMap {
     @Getter
     private Level world;
 
-    public LocalMap(String gameId, String worldName, boolean loadOnInit) {
+    public LocalGameMap(String gameId, String worldName, boolean loadOnInit) {
         this.gameId = gameId;
         sourceWorldFolder = new File(BACKUP_PATH, worldName);
         if (loadOnInit) load();
