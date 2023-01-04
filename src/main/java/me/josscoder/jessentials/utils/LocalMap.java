@@ -10,16 +10,19 @@ import java.io.IOException;
 
 public class LocalMap {
 
+    private final String gameId;
+
     private final File sourceWorldFolder;
     private File activeWorldFolder;
 
     public static final String WORLDS_PATH = Server.getInstance().getDataPath() + "worlds/";
-    public static final  String BACKUP_PATH = JEssentialsPlugin.getInstance().getDataFolder() + "/backup/";
+    public static final String BACKUP_PATH = JEssentialsPlugin.getInstance().getDataFolder() + "/backup/";
 
     @Getter
     private Level world;
 
-    public LocalMap(String worldName, boolean loadOnInit) {
+    public LocalMap(String gameId, String worldName, boolean loadOnInit) {
+        this.gameId = gameId;
         sourceWorldFolder = new File(BACKUP_PATH, worldName);
         if (loadOnInit) load();
     }
@@ -29,7 +32,7 @@ public class LocalMap {
 
         activeWorldFolder = new File(
                 WORLDS_PATH,
-                sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
+                gameId + sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
         );
 
         try {
