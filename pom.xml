@@ -100,7 +100,7 @@
         <dependency>
             <groupId>com.github.Josscoder</groupId>
             <artifactId>FormAPI</artifactId>
-            <version>e792f36e8b</version>
+            <version>ac7e2c7580</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
