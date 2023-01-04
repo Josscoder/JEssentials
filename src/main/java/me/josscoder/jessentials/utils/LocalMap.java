@@ -8,20 +8,18 @@ import me.josscoder.jessentials.JEssentialsPlugin;
 import java.io.File;
 import java.io.IOException;
 
-public class LocalGameMap {
+public class LocalMap {
 
-    private final String gameId;
     private final File sourceWorldFolder;
     private File activeWorldFolder;
 
-    private final String WORLDS_PATH = Server.getInstance().getDataPath() + "worlds/";
+    public static final String WORLDS_PATH = Server.getInstance().getDataPath() + "worlds/";
+    public static final  String BACKUP_PATH = JEssentialsPlugin.getInstance().getDataFolder() + "/backup/";
 
     @Getter
     private Level world;
 
-    public LocalGameMap(String gameId, String worldName, boolean loadOnInit) {
-        this.gameId = gameId;
-        String BACKUP_PATH = JEssentialsPlugin.getInstance().getDataFolder() + "/backup/" + gameId;
+    public LocalMap(String worldName, boolean loadOnInit) {
         sourceWorldFolder = new File(BACKUP_PATH, worldName);
         if (loadOnInit) load();
     }
@@ -31,7 +29,7 @@ public class LocalGameMap {
 
         activeWorldFolder = new File(
                 WORLDS_PATH,
-                gameId + "_" + sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
+                sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
         );
 
         try {
