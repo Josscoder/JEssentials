@@ -3,7 +3,6 @@ package me.josscoder.jessentials.utils;
 import cn.nukkit.Server;
 import cn.nukkit.level.Level;
 import lombok.Getter;
-import me.josscoder.jessentials.JEssentialsPlugin;
 
 import java.io.File;
 import java.io.IOException;
