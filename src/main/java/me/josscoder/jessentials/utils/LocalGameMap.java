@@ -16,14 +16,13 @@ public class LocalGameMap {
     private File activeWorldFolder;
 
     public static final String WORLDS_PATH = Server.getInstance().getDataPath() + "worlds/";
-    public static final String BACKUP_PATH = JEssentialsPlugin.getInstance().getDataFolder() + "/backup/";
 
     @Getter
     private Level world;
 
-    public LocalGameMap(String gameId, String worldName, boolean loadOnInit) {
+    public LocalGameMap(String gameId, String backupPath, String worldName, boolean loadOnInit) {
         this.gameId = gameId;
-        sourceWorldFolder = new File(BACKUP_PATH, worldName);
+        sourceWorldFolder = new File(backupPath, worldName);
         if (loadOnInit) load();
     }
 
@@ -32,7 +31,7 @@ public class LocalGameMap {
 
         activeWorldFolder = new File(
                 WORLDS_PATH,
-                gameId + sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
+                gameId + "_" + sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
         );
 
         try {
