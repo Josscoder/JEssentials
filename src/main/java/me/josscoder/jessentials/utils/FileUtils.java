@@ -1,47 +1,42 @@
 package me.josscoder.jessentials.utils;
 
-import java.io.*;
-import java.nio.file.Files;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileUtils {
 
-    public static void copy(File source, File destination) throws IOException {
-        if (source.isDirectory()) {
-            if (!destination.exists()) destination.mkdir();
-
-            String[] files = source.list();
-            if (files == null) return;
-
-            for (String file : files) {
-                File newSource = new File(source, file);
-                File newDestination = new File(destination, file);
-                copy(newSource, newDestination);
-            }
-        } else {
-            InputStream inputStream = Files.newInputStream(source.toPath());
-            OutputStream outputStream = Files.newOutputStream(destination.toPath());
-
-            byte[] buffer = new byte[1024];
-
-            int length;
-
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
-            }
-
-            inputStream.close();
-            outputStream.close();
+    public static void copy(File srcDir, File destDir) {
+        try {
+            org.apache.commons.io.FileUtils.copyDirectory(srcDir, destDir, true);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public static void delete(File file) {
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files == null) return;
+        try {
+            Path dir = file.toPath();
+            Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
+                }
 
-            for (File child : files) delete(child);
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    if (exc == null) {
+                        Files.delete(dir);
+                        return FileVisitResult.CONTINUE;
+                    } else {
+                        throw exc;
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        file.delete();
     }
 }
