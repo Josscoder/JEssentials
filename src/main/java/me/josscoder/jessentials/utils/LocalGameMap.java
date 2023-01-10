@@ -33,11 +33,7 @@ public class LocalGameMap {
                 gameId + "_" + sourceWorldFolder.getName() + "_" + System.currentTimeMillis()
         );
 
-        try {
-            FileUtils.copy(sourceWorldFolder, activeWorldFolder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileUtils.copy(sourceWorldFolder, activeWorldFolder);
 
         Server.getInstance().loadLevel(activeWorldFolder.getName());
 
