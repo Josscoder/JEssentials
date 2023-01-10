@@ -3,7 +3,7 @@ main: me.josscoder.jessentials.JEssentialsPlugin
 api: 1.0.0
 version: ${project.version}
 author: Josscoder
-load: POSTWORLD
+load: STARTUP
 depend:
   - JBridge
   - LuckPerms

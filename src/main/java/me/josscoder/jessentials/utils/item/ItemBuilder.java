@@ -16,10 +16,10 @@ import java.util.function.BiConsumer;
 public class ItemBuilder implements Listener {
 
     private String uniqueId = UUID.randomUUID().toString();
-    private int index;
-    private int id;
-    private int meta;
-    private int count;
+    private int index = 0;
+    private int id = 1;
+    private int meta = 0;
+    private int count = 1;
     private String customName;
     private CompoundTag customData = new CompoundTag();
     private String[] lore = new String[]{};
@@ -30,7 +30,11 @@ public class ItemBuilder implements Listener {
     private String[] groups = new String[]{};
 
     public enum Action {
-        DEFAULT,
+        LEFT_CLICK_BLOCK,
+        RIGHT_CLICK_BLOCK,
+        LEFT_CLICK_AIR,
+        RIGHT_CLICK_AIR,
+        PHYSICAL,
         BLOCK_BREAK,
         BLOCK_PLACE,
         INTERACT_ENTITY

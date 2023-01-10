@@ -131,7 +131,7 @@ public class ItemManager extends Manager implements Listener {
 
     @EventHandler
     private void onItemInteract(PlayerInteractEvent event) {
-        handleExecution(event.getItem(), event.getPlayer(), ItemBuilder.Action.DEFAULT);
+        handleExecution(event.getItem(), event.getPlayer(), ItemBuilder.Action.valueOf(event.getAction().name()));
     }
 
     @EventHandler
